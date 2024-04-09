@@ -6,7 +6,7 @@ import Router from '../components/routes/Router'
 const Layout = () => {
 	return (
 		<>
-			<div className='text-center'>
+			<div>
 				<Header />
 				<main>
 					<Router />
