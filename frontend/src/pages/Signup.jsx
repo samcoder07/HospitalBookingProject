@@ -45,7 +45,7 @@ const Signup = () => {
 							Create an <span className='text-primaryColor'>Account</span>
 						</h3>
 
-						<form onSubmit={submitHandler}>
+						<form onSubmit={submitHandler} method="post">
 							<div className="mb-5">
 								<input type="text" name="name" id="name" placeholder='Enter Full Name...' value={formData.name} onChange={handleInputChange} className='w-full pr-4 py-3  border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-hradingColor placeholder:text-textColor cursor-pointer' required />
 							</div>
