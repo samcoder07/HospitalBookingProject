@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import Doctor from '../models/DoctorSchema.js'
-import user from '../models/UserSchema.js'
+import User from '../models/UserSchema.js'
 
 export const authentication = async (req, res, next) => {
 	// get token if it nexist 

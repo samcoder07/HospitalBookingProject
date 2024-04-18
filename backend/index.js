@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import authRouter from './Routes/auth.js'
 import userRouter from './Routes/user.js'
 import doctorRouter from './Routes/doctor.js'
+import reviewRouter from './Routes/Review.js'
 dotenv.config();
 
 const app = express();
@@ -42,6 +43,7 @@ app.use(cors(corsOption))
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/doctors', doctorRouter)
+app.use('/api/v1/reviews', reviewRouter)
 
 
 app.listen(port, () => {
