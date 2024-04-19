@@ -13,7 +13,8 @@ export const authenticate = async (req, res, next) => {
 	}
 
 	try {
-		console.log(authToken);
+
+		const token = authToken.split(' ')[1];
 
 		const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
 

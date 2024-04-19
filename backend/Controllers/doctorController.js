@@ -5,12 +5,12 @@ export const updateDoctor = async (req, res) => {
 
 	try {
 
-		const updatedDoctor = await Doctor.findByIdAndUpdate(id, { $set: req.body }, { new: true })
+		const updateDoctor = await Doctor.findByIdAndUpdate(id, { $set: req.body }, { new: true })
 
-		res.status(200).json({ success: true, message: "Successfully updated", data: updatedDoctor })
+		res.status(200).json({ success: true, message: "Successfully updated", data: updateDoctor })
 
 	} catch (error) {
-		res.status(500).json({ success: false, message: "Failed to update", data: updatedDoctor })
+		res.status(500).json({ success: false, message: "Failed to update", data: updateDoctor })
 	}
 }
 
