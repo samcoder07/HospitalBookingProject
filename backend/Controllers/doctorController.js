@@ -1,6 +1,6 @@
 import Doctor from '../models/DoctorSchema.js'
 
-export const updatedDoctor = async (req, res) => {
+export const updateDoctor = async (req, res) => {
 	const id = req.params.id
 
 	try {
@@ -33,7 +33,7 @@ export const getSingleDoctor = async (req, res) => {
 
 	try {
 
-		const doctor = await Doctor.findById(id).select("-password")
+		const doctor = await Doctor.findById(id).populate("reviews").select("-password")
 
 		res.status(200).json({ success: true, message: "Doctor Found", data: doctor })
 

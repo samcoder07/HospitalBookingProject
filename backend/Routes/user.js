@@ -1,11 +1,11 @@
 import express from 'express';
-import { deleteUser, updatedUser, getAllUser, getSingleUser } from '../Controllers/userController.js';
-import { authentication, restrict } from '../auth/verifyToken.js';
+import { deleteUser, updateUser, getAllUser, getSingleUser } from '../Controllers/userController.js';
+import { authenticate, restrict } from '../auth/verifyToken.js';
 const router = express.Router();
 
-router.get('/:id', authentication, restrict(['patient']), getSingleUser)
-router.get('/', authentication, restrict(['admin']), getAllUser)
-router.put('/:id', authentication, restrict(['patient']), updatedUser)
-router.delete('/:id', authentication, restrict(['patient']), deleteUser)
+router.get('/:id', authenticate, restrict(['patient']), getSingleUser)
+router.get('/', authenticate, restrict(['admin']), getAllUser)
+router.put('/:id', authenticate, restrict(['patient']), updateUser)
+router.delete('/:id', authenticate, restrict(['patient']), deleteUser)
 
 export default router;

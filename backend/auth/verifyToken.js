@@ -2,8 +2,9 @@ import jwt from 'jsonwebtoken'
 import Doctor from '../models/DoctorSchema.js'
 import User from '../models/UserSchema.js'
 
-export const authentication = async (req, res, next) => {
+export const authenticate = async (req, res, next) => {
 	// get token if it nexist 
+	console.log(req.headers);
 	const authToken = req.headers.authorization
 
 	// check if token exist 

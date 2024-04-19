@@ -7,10 +7,10 @@ import authRouter from './Routes/auth.js'
 import userRouter from './Routes/user.js'
 import doctorRouter from './Routes/doctor.js'
 import reviewRouter from './Routes/Review.js'
+
 dotenv.config();
 
 const app = express();
-// const port = process.env.PORT || 3300;
 const port = 5000;
 const corsOption = {
 	origin: true,
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 	res.send('Api is working');
 })
 
-//databse connection
+// Database connection
 mongoose.set('strictQuery', false)
 const connectDB = async () => {
 	try {
@@ -32,11 +32,11 @@ const connectDB = async () => {
 		console.log('MongoDB is connected');
 
 	} catch (error) {
-		console.log('MongoDB is not connected');
+		console.error('MongoDB connection error:', error);
 	}
 }
 
-// middleware 
+// Middleware 
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors(corsOption))
@@ -48,5 +48,5 @@ app.use('/api/v1/reviews', reviewRouter)
 
 app.listen(port, () => {
 	connectDB();
-	console.log("Server listening on port" + port);
+	console.log("Server listening on port " + port);
 })

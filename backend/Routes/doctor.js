@@ -1,14 +1,14 @@
 import express from 'express';
-import { deleteDoctor, updatedDoctor, getAllDoctor, getSingleDoctor } from '../Controllers/doctor.Controller.js';
-import { authentication, restrict } from '../auth/verifyToken.js';
-import reviewRouter from './Review.js'
+import { deleteDoctor, updateDoctor, getAllDoctor, getSingleDoctor } from '../Controllers/doctorController.js';
+import { authenticate, restrict } from '../auth/verifyToken.js';
+import reviewRouter from '../Routes/Review.js'
 const router = express.Router();
 
 router.use("/:doctorId/reviews", reviewRouter)
 
 router.get('/:id', getSingleDoctor)
 router.get('/', getAllDoctor)
-router.put('/:id', authentication, restrict(['doctor']), updatedDoctor)
-router.delete('/:id', authentication, restrict(['doctor']), deleteDoctor)
+router.put('/:id', authenticate, restrict(['doctor']), updateDoctor)
+router.delete('/:id', authenticate, restrict(['doctor']), deleteDoctor)
 
 export default router;
