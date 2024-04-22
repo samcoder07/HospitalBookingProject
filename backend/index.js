@@ -16,6 +16,8 @@ const corsOption = {
 	origin: true,
 }
 
+app.use(cors(corsOption))
+
 app.get('/', (req, res) => {
 	res.send('Api is working');
 })
