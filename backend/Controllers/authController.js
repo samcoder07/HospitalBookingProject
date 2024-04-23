@@ -11,6 +11,7 @@ const generateToken = user => {
 
 export const register = async (req, res) => {
 	const { email, password, name, role, photo, gender } = req.body;
+	// console.log(req.body);
 	try {
 		let user = null;
 		if (role === 'patient') {
@@ -59,6 +60,7 @@ export const register = async (req, res) => {
 		res.status(200).json({ success: true, message: 'User successfully created' })
 
 	} catch (error) {
+		console.log(error);
 		res.status(500).json({ success: true, message: 'Internal server error, Try again' })
 	}
 }

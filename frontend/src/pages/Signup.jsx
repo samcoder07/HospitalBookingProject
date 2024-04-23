@@ -41,12 +41,14 @@ const Signup = () => {
 
 		try {
 			const res = await fetch(`${BASE_URL}/auth/register`, {
-				method: 'POST',
+				method: "post",
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify(formData)
 			})
+
+			console.log(res);
 			const { message } = await res.json()
 
 			if (!res.ok) {
@@ -103,9 +105,9 @@ const Signup = () => {
 									Gender:
 									<select name="gender" value={formData.gender} onChange={handleInputChange} className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none">
 										<option value="" hidden>Select</option>
-										<option value="Male">Male</option>
-										<option value="Female">Female</option>
-										<option value="Other">Other</option>
+										<option value="male">Male</option>
+										<option value="female">Female</option>
+										<option value="other">Other</option>
 									</select>
 								</label>
 							</div>
