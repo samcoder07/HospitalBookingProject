@@ -11,7 +11,7 @@ const Profile = () => {
 		specialization: '',
 		ticketPrice: 0,
 		qualifications: [],
-		experiences: [{ startingDate: '', endingDate: '', position: '', hospital: '' }],
+		experiences: [],
 		timeSlots: [{ day: '', startTime: '', endTime: '' }],
 		photo: null
 	})
@@ -71,6 +71,24 @@ const Profile = () => {
 		deleteItem('qualifications', index)
 	}
 
+	const addExperiences = e => {
+		e.preventDefault()
+
+		addItem('experiences', {
+			startingDate: '', endingDate: '', position: 'Senior Surgeon', hospital: 'Fortis'
+		})
+	}
+
+
+	const handleExperiencesChange = (event, index) => {
+		handleReusableInputChangeFunc("experiences", index, event)
+	}
+
+	const deleteExperiences = (e, index) => {
+		e.preventDefault()
+		deleteItem('experiences', index)
+	}
+
 	return (
 		<div>
 			<h2 className="text-headingColor font-bold text-[24px] leading-9 mb-10">Profile Information</h2>
@@ -79,14 +97,17 @@ const Profile = () => {
 					<p className="form__label">Name <span className="text-red-600">*</span></p>
 					<input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Full Name" className="form__input" />
 				</div>
+
 				<div className="mb-5">
 					<p className="form__label">Email <span className="text-red-600">*</span></p>
 					<input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Email" className="form__input" readOnly aria-readonly disabled="true" />
 				</div>
+
 				<div className="mb-5">
 					<p className="form__label">Phone <span className="text-red-600">*</span></p>
 					<input type="number" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="Enter Phone Number..." className="form__input" />
 				</div>
+
 				<div className="mb-5">
 					<p className="form__label">Bio <span className="text-red-600">*</span></p>
 					<input type="text" name="bio" value={formData.bio} onChange={handleInputChange} placeholder="Enter Bio..." className="form__input" />
@@ -167,33 +188,33 @@ const Profile = () => {
 									<div className="grid grid-cols-2 gap-5">
 										<div>
 											<p className="form__label">Starting Date <span className="text-red-600">*</span></p>
-											<input type="date" name="startingDate" value={item.startingDate} className="form__input" />
+											<input type="date" name="startingDate" value={item.startingDate} className="form__input" onChange={e => handleExperiencesChange(e, index)} />
 										</div>
 										<div>
 											<p className="form__label">Ending Date <span className="text-red-600">*</span></p>
-											<input type="date" name="endingDate" value={item.endingDate} className="form__input" />
+											<input type="date" name="endingDate" value={item.endingDate} className="form__input" onChange={e => handleExperiencesChange(e, index)} />
 										</div>
 									</div>
 
 									<div className="grid grid-cols-2 gap-5 mt-5">
 										<div>
 											<p className="form__label">Position<span className="text-red-600">*</span></p>
-											<input type="text" name="position" value={item.position} className="form__input" />
+											<input type="text" name="position" value={item.position} className="form__input" onChange={e => handleExperiencesChange(e, index)} />
 										</div>
 										<div>
 											<p className="form__label">Hospitals <span className="text-red-600">*</span></p>
-											<input type="date" name="hospital" value={item.hospital} className="form__input" />
+											<input type="text" name="hospital" value={item.hospital} className="form__input" onChange={e => handleExperiencesChange(e, index)} />
 										</div>
 									</div>
 
 
-									<button className="bg-red-600 p-2 rounded-full text-white text-[18px] mt-2 mb-[30px] cursor-pointer"><AiOutlineDelete /></button>
+									<button onClick={e => deleteExperiences(e, index)} className="bg-red-600 p-2 rounded-full text-white text-[18px] mt-2 mb-[30px] cursor-pointer"><AiOutlineDelete /></button>
 								</div>
 							</div>
 						))
 					}
 
-					<button className="bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer">Add Experience</button>
+					<button onClick={addExperiences} className="bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer">Add Experience</button>
 				</div>
 
 				<div className="mb-5">
