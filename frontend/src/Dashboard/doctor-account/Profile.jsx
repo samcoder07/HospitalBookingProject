@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { AiOutlineDelete } from 'react-icons/ai'
+import uploadImageToCloudinary from "../../utils/uploadCloudinary"
 const Profile = () => {
 	const [formData, setformData] = useState({
 		name: '',
@@ -12,7 +13,7 @@ const Profile = () => {
 		ticketPrice: 0,
 		qualifications: [],
 		experiences: [],
-		timeSlots: [{ day: '', startTime: '', endTime: '' }],
+		timeSlots: [],
 		photo: null
 	})
 
@@ -20,8 +21,8 @@ const Profile = () => {
 		setformData({ ...formData, [e.target.name]: e.target.value })
 	}
 
-	const handleIFileInputChange = event => {
-
+	const handleIFileInputChange = async event => {
+		const file = event.target.files[0]
 	}
 	const updateProfileHandler = async e => {
 		e.preventDefault()
@@ -87,6 +88,24 @@ const Profile = () => {
 	const deleteExperiences = (e, index) => {
 		e.preventDefault()
 		deleteItem('experiences', index)
+	}
+
+	const addTimeSlots = e => {
+		e.preventDefault()
+
+		addItem('timeSlots', {
+			day: 'Monday', startTime: '11:45', endTime: '1:00'
+		})
+	}
+
+
+	const handleTimeSlotsChange = (event, index) => {
+		handleReusableInputChangeFunc("timeSlots", index, event)
+	}
+
+	const deleteTimeSlots = (e, index) => {
+		e.preventDefault()
+		deleteItem('timeSlots', index)
 	}
 
 	return (
@@ -226,7 +245,7 @@ const Profile = () => {
 									<div className="grid grid-cols-2 md:grid-cols-4 mb-[30px] gap-5">
 										<div>
 											<p className="form__label">Day<span className="text-red-600">*</span></p>
-											<select name="day" value={item.day} className="form__input py-3.5">
+											<select name="day" value={item.day} onChange={e => handleTimeSlotsChange(e, index)} className="form__input py-3.5">
 												<option value="" hidden>Select</option>
 												<option value="monday">Monday</option>
 												<option value="tuesday">Tuesday</option>
@@ -239,14 +258,14 @@ const Profile = () => {
 										</div>
 										<div>
 											<p className="form__label">Starting Time<span className="text-red-600">*</span></p>
-											<input type="time" name="startTime" value={item.startTime} className="form__input" />
+											<input type="time" name="startTime" value={item.startTime} className="form__input" onChange={e => handleTimeSlotsChange(e, index)} />
 										</div>
 										<div>
 											<p className="form__label">Ending Time<span className="text-red-600">*</span></p>
-											<input type="time" name="endTime" value={item.endTime} className="form__input" />
+											<input type="time" onChange={e => handleTimeSlotsChange(e, index)} name="endTime" value={item.endTime} className="form__input" />
 										</div>
 										<div className="flex items-center">
-											<button className="bg-red-600 p-2 rounded-full text-white text-[18px]cursor-pointer mt-6"><AiOutlineDelete /></button>
+											<butto onClick={(e) => deleteTimeSlots(e, index)} className="bg-red-600 p-2 rounded-full text-white text-[18px]cursor-pointer mt-6"><AiOutlineDelete /></butto>
 										</div>
 									</div>
 								</div>
@@ -254,7 +273,7 @@ const Profile = () => {
 						))
 					}
 
-					<button className="bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer">Add TimeSlots</button>
+					<button onClick={addTimeSlots} className="bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer">Add TimeSlots</button>
 				</div>
 
 				<div className="mb-5">
