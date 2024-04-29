@@ -1,10 +1,14 @@
 import { useState } from "react"
 import { AiOutlineDelete } from 'react-icons/ai'
 import uploadImageToCloudinary from "../../utils/uploadCloudinary"
-const Profile = () => {
+import { BASE_URL, token } from "../../config"
+import { toast } from 'react-toastify'
+import { useEffect } from "react"
+const Profile = ({ doctorData }) => {
 	const [formData, setformData] = useState({
 		name: '',
 		email: '',
+		password: '',
 		phone: '',
 		bio: '',
 		gender: '',
@@ -17,19 +21,62 @@ const Profile = () => {
 		photo: null
 	})
 
+	useEffect(() => {
+		setformData({
+			name: doctorData?.name,
+			email: doctorData?.email,
+			phone: doctorData?.phone,
+			bio: doctorData?.bio,
+			gender: doctorData?.gender,
+			about: doctorData?.about,
+			specialization: doctorData?.specialization,
+			ticketPrice: doctorData?.ticketPrice,
+			qualifications: doctorData?.qualifications,
+			experiences: doctorData?.experiences,
+			timeSlots: doctorData?.timeSlots,
+			photo: doctorData?.photo
+		})
+	}, [doctorData])
+
 	const handleInputChange = e => {
 		setformData({ ...formData, [e.target.name]: e.target.value })
 	}
 
 	const handleIFileInputChange = async event => {
 		const file = event.target.files[0]
+
+		const data = await uploadImageToCloudinary(file);
+
+		console.log(data);
+		setformData({ ...formData, photo: data?.url })
 	}
 	const updateProfileHandler = async e => {
 		e.preventDefault()
+
+		try {
+			const res = await fetch(`${BASE_URL}/doctors/${doctorData._id}`, {
+				method: 'PUT',
+				headers: {
+					"content-type": "application/json",
+					Authorization: `Bearer ${token}`
+				},
+				body: JSON.stringify(formData)
+			})
+
+			const result = await res.json()
+			if (!res.ok) {
+				throw Error(result.message)
+			}
+
+			toast.success(result.message)
+
+		} catch (error) {
+			toast.error(error.message)
+		}
 	}
 
 	const addItem = (key, item) => {
-		setformData(prevFormData => ({ ...prevFormData, [key]: [...prevFormData[key], item], }))
+		setformData(prevFormData => ({ ...prevFormData, [key]: [...prevFormData[key], item] }))
 	}
 
 	const handleReusableInputChangeFunc = (key, index, event) => {
@@ -265,7 +312,7 @@ const Profile = () => {
 											<input type="time" onChange={e => handleTimeSlotsChange(e, index)} name="endTime" value={item.endTime} className="form__input" />
 										</div>
 										<div className="flex items-center">
-											<butto onClick={(e) => deleteTimeSlots(e, index)} className="bg-red-600 p-2 rounded-full text-white text-[18px]cursor-pointer mt-6"><AiOutlineDelete /></butto>
+											<button onClick={(e) => deleteTimeSlots(e, index)} className="bg-red-600 p-2 rounded-full text-white text-[18px]cursor-pointer mt-6"><AiOutlineDelete /></button>
 										</div>
 									</div>
 								</div>
