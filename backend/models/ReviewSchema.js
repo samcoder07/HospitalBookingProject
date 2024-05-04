@@ -50,7 +50,6 @@ reviewSchema.statics.calcAverageRatings = async function (doctorId) {
     totalRating: stats[0].numOfRating,
     averageRating: stats[0].averageRating,
   })
-  console.log(stats);
 }
 
 reviewSchema.post('save', function () {
