@@ -29,31 +29,36 @@ const reviewSchema = new mongoose.Schema(
 reviewSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'user',
-    select: "name photo",
+    select: 'name photo',
   })
-  next()
+
+  next();
 })
 
-reviewSchema.statics.calcAverageRatings = async function (doctorId) {
-  const stats = await this.aggregate([{
-    $match: { doctor: doctorId }
-  }, {
-    $group: {
-      _id: "doctor",
-      numOfRating: { $sum: 1 },
-      avgRating: { $avg: "$rating" }
+reviewSchema.statics.calcAvgerageRatings = async function (doctorId) {
+  const stats = await this.aggregate([
+    {
+      $match: { doctor: doctorId },
+    },
+    {
+      $group: {
+        _id: "doctor",
+        numOfRating: { $sum: 1 },
+        avgRating: { $avg: "$rating" }
+      }
     }
-  }
   ])
+
+  console.log(stats);
 
   await Doctor.findByIdAndUpdate(doctorId, {
     totalRating: stats[0].numOfRating,
-    averageRating: stats[0].averageRating,
+    averageRating: stats[0].avgRating,
   })
 }
 
-reviewSchema.post('save', function () {
-  this.constructor.calcAverageRatings(this.doctor)
+reviewSchema.post("save", function () {
+  this.constructor.calcAvgerageRatings(this.doctor);
 })
 
 export default mongoose.model("Review", reviewSchema);

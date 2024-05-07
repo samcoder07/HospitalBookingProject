@@ -4,6 +4,7 @@ import { formateData } from '../../utils/formateDate'
 import { AiFillStar } from 'react-icons/ai'
 import FeedbackForm from './FeedbackForm'
 const Feedback = ({ reviews, totalRating }) => {
+	console.log("review", reviews);
 
 	const [showFeedbackForm, setshowFeedbackForm] = useState(false)
 
@@ -28,7 +29,7 @@ const Feedback = ({ reviews, totalRating }) => {
 							</div>
 						</div>
 						<div className="flex gap-1">
-							{[...Array(review?.rating).keys()].map((_, index) => <AiFillStar key={index} color='#0067FF' />)}
+							{[...Array(review?.rating).keys()].map((_, index) => (<AiFillStar key={index} color="#0067FF" />))}
 						</div>
 					</div>
 				))}
