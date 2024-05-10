@@ -1,6 +1,5 @@
 import convertTime from '../../utils/convertTime'
 const SidePanel = ({ ticketPrice, timeSlots, doctorId }) => {
-
 	return (
 		<div className='shadow-panelShadow p-3 lg:p-5 rounded-md'>
 			<div className="flex items-center justify-between">
@@ -23,8 +22,6 @@ const SidePanel = ({ ticketPrice, timeSlots, doctorId }) => {
 					</li>))}
 				</ul>
 			</div>
-
-			<button className='btn px-2 w-full rounded-md'>Book Appointment</button>
 		</div>
 	)
 }

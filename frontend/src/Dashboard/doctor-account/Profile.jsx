@@ -51,6 +51,7 @@ const Profile = ({ doctorData }) => {
 		setformData({ ...formData, photo: data?.url })
 	}
 	const updateProfileHandler = async e => {
+		console.log(formData);
 		e.preventDefault()
 
 		try {

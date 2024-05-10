@@ -29,7 +29,7 @@ const DoctorDetails = () => {
 		return <Error />;
 	}
 
-	const { name, qualifications, experiences, timeSlots, reviews, bio, about, totalRating, averageRating, specialization, ticketPrice, photo } = item;
+	const { name, qualifications, experiences, timeSlots, reviews, bio, about, totalRating, rating, specialization, ticketPrice, photo } = item;
 
 	// Function to calculate average rating
 	return (
@@ -51,7 +51,7 @@ const DoctorDetails = () => {
 								</h3>
 								<div className="flex items-center gap-[6px]">
 									<span className='flex items-center gap-[6px] text-[14px] leading-6 lg:text-[1] font-semibold text-irisBlueColor'>
-										<img src={starIcon} alt="" /> {averageRating}
+										<img src={starIcon} alt="" /> {rating}
 									</span>
 									<span className='text-[14px] leading-5 lg:text-[16px] lg:leading-7 font-[400] text-textColor'>({totalRating})</span>
 								</div>

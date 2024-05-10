@@ -4,8 +4,6 @@ import { formateData } from '../../utils/formateDate'
 import { AiFillStar } from 'react-icons/ai'
 import FeedbackForm from './FeedbackForm'
 const Feedback = ({ reviews, totalRating }) => {
-	console.log("review", reviews);
-
 	const [showFeedbackForm, setshowFeedbackForm] = useState(false)
 
 	return (
