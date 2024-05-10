@@ -18,6 +18,8 @@ const corsOption = {
 	origin: true,
 };
 
+app.use(express.json())
+
 app.use(cors(corsOption));
 
 app.post("/mail", sendMailer);
