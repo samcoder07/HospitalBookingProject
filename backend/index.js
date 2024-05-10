@@ -28,6 +28,8 @@ app.get('/', (req, res) => {
 	res.send('Api is working');
 });
 
+app.use(express.static(path.join(__dirname, "dist")))
+
 
 // Database connection
 mongoose.set('strictQuery', false);
