@@ -11,9 +11,9 @@ export default {
         headingColor: "#181A1E",
         textColor: "#4ES45F"
       },
-      boxShadow: {
-        panelShadow: "rgba(17,12,46,.15) 0px 48px 100px 0px;"
-      }
+      // boxShadow: {
+      //   panelShadow: "rgba(17,12,46,.15) 0px 48px 100px 0px;"
+      // }
     },
   },
   plugins: [],
