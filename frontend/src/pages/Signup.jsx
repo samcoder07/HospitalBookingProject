@@ -5,10 +5,13 @@ import uploadImageToCloudinary from '../utils/uploadCloudinary'
 import { BASE_URL } from '../config'
 import { toast } from 'react-toastify'
 import HashLoader from 'react-spinners/HashLoader'
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 const Signup = () => {
 	const [selectedFile, setSelectedFile] = useState(null)
 	const [previewURL, setPreviewURL] = useState('')
 	const [loading, setLoading] = useState(false)
+	const [visibility, setVisibilityHide] = useState(true);
 	const [formData, setformData] = useState({
 		name: '',
 		email: '',
@@ -21,8 +24,19 @@ const Signup = () => {
 	const navigate = useNavigate()
 
 	const handleInputChange = e => {
-		setformData({ ...formData, [e.target.name]: e.target.value })
+		const { name, value } = e.target;
+		if (name === 'password' && value.length > 6) {
+			// If password length exceeds 6 characters, truncate it to 6 characters
+			setformData({ ...formData, [name]: value.slice(0, 6) });
+		} else {
+			setformData({ ...formData, [e.target.name]: e.target.value })
+		}
 	}
+	const toggleVisibility = () => {
+		setVisibilityHide(!visibility);
+	};
+
+	const passwordInputType = visibility ? "password" : "text";
 	const handleIFileInputChange = async (event) => {
 		const file = event.target.files[0]
 
@@ -87,10 +101,20 @@ const Signup = () => {
 							<div className="mb-5">
 								<input type="email" name="email" id="email" placeholder='Enter Your Email...' value={formData.email} onChange={handleInputChange} className='w-full pr-4 py-3  border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-hradingColor placeholder:text-textColor cursor-pointer' required />
 							</div>
-							<div className="mb-5">
-								<input type="password" name="password" id="password" placeholder='Enter Password...' value={formData.password} onChange={handleInputChange} className='w-full pr-4 py-3  border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-hradingColor placeholder:text-textColor cursor-pointer' required />
+							<div className="mb-5 flex">
+								<input
+									type={passwordInputType}
+									name="password"
+									id="password"
+									placeholder='Enter Password...'
+									value={formData.password}
+									onChange={handleInputChange}
+									className='w-full pr-4 py-3  border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-hradingColor placeholder:text-textColor cursor-pointer'
+								/>
+								<span className="mt-3 text-primaryColor" id="basic-addon2" onClick={toggleVisibility}>
+									{visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
+								</span>
 							</div>
-
 							<div className="mb-5 flex items-center justify-between">
 								<label className='text-headingColor font-bold text-[16px] leading-7'>
 									Are you a:

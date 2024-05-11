@@ -7,10 +7,13 @@ import authRouter from './Routes/auth.js';
 import userRouter from './Routes/user.js';
 import doctorRouter from './Routes/doctor.js';
 import reviewRouter from './Routes/Review.js';
-import { sendMailer } from './Controllers/sendMailer.js'
-import path from 'path'; // Added import for path module
+import { sendMailer } from './Controllers/sendMailer.js';
+// import path from 'path'; // Added import for path module
 
 dotenv.config();
+
+const __filename = new URL(import.meta.url).pathname;
+// const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 5000;
@@ -18,7 +21,7 @@ const corsOption = {
 	origin: true,
 };
 
-app.use(express.json())
+app.use(express.json());
 
 app.use(cors(corsOption));
 
@@ -28,8 +31,7 @@ app.get('/', (req, res) => {
 	res.send('Api is working');
 });
 
-app.use(express.static(path.join(__dirname, "dist")))
-
+// app.use(express.static(path.join(__dirname, "dist")));
 
 // Database connection
 mongoose.set('strictQuery', false);
@@ -47,7 +49,7 @@ const connectDB = async () => {
 	}
 };
 
-// Middleware 
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOption));
